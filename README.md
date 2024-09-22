@@ -6,7 +6,8 @@ This repository is developed by Tae Ha "Jeff" Park at [Space Rendezvous Laborato
 - [2023.01.12] The lightbox and sunlamp domain test labels are now available through [Stanford Digital Repository](https://purl.stanford.edu/wv398fc4383)! The metrics for HIL domains are also slightly modified to be in agreement with our [new paper](https://www.sciencedirect.com/science/article/pii/S0094576523000048) summarizing the competition.
 - [2023.07.25] There was a bug computing the translation vector from heatmaps. This bug does not affect the final results since we use translation vectors from the EfficientPose (i.e. regression) head. The bug is fixed (see the [log](/docs/BUGFIX_20230725.md)), and the journal article in press will be updated soon.
 - [2023.11.03] We are sharing the `tangoPoints.mat` file under `core/utils/models`.
-- [2024.01.30] The binary masks are now available at this [link](https://office365stanford-my.sharepoint.com/:u:/g/personal/tpark94_stanford_edu/EbW9PGh8pIxGmNsXN0aTCvgB-EQ9dvsvrcDyThtZGGCLRw).
+- [2024.01.30] The binary masks are now available at this [link](https://1drv.ms/u/c/fa28139a835eeb46/EboqSovywuBDvilXqB8EfpEBvRMfdX3D0-TjMkNVcauVXg).
+- [2024.09.22] Updated the binary mask & pre-trained model links.
 
 ## Introduction
 
@@ -51,14 +52,14 @@ The code is developed and tested with python 3.7 and PyTorch 1.10 on Ubuntu 20.0
 pip3 install -r requirements.txt
 ```
 
-4. Download [SPEED+](https://purl.stanford.edu/wv398fc4383) at `$DATASET.ROOT`. The binary masks are available here [link](https://office365stanford-my.sharepoint.com/:u:/g/personal/tpark94_stanford_edu/EbW9PGh8pIxGmNsXN0aTCvgB-EQ9dvsvrcDyThtZGGCLRw). Copy the `masks` folders under appropriate image domains.
+4. Download [SPEED+](https://purl.stanford.edu/wv398fc4383) at `$DATASET.ROOT`. The binary masks are available here [link](https://1drv.ms/u/c/fa28139a835eeb46/EboqSovywuBDvilXqB8EfpEBvRMfdX3D0-TjMkNVcauVXg). Copy the `masks` folders under appropriate image domains.
 
-5. (Optional) Download pre-trained models from [here](https://office365stanford-my.sharepoint.com/:f:/g/personal/tpark94_stanford_edu/EleRJUfWcTdComwfLwrrGTIBFtH_MItMgc9Cp_wgKOa7oA). Specify the model's path at `${TEST.MODEL_FILE}`.
-
+5. (Optional) Download pre-trained models from [here](https://1drv.ms/f/c/fa28139a835eeb46/EgaEWqai0j5JkYLdAt0B8msBtg_-Q3UpmrWhHUbnSqMX_Q). Specify the model's path at `${TEST.MODEL_FILE}`.
 
 ## Pre-processing
 
 To pre-process the training labels for the `synthetic` domain, run
+
 ```
 python3 tools/preprocess.py --jsonfile synthetic/train.json --cfg experiments/offline_train_full_config.yaml
 ```
@@ -72,11 +73,13 @@ The images can be stylized using the code from this [repository](https://github.
 ## Training & Testing
 
 To train the full configuration SPNv2 on SPEED+ `synthetic` data on multiple GPUs:
+
 ```
 python3 tools/train.py --cfg experiments/offline_train_full_config.yaml
 ```
 
 To train on a single GPU, add `--DIST.MULTIPROCESSING_DISTRIBUTED False`. To train without binary masks, you must modify the `MODEL` configuration to the following:
+
 ```
 HEAD:
     NAMES: ['heatmap', 'efficientpose']
@@ -84,12 +87,15 @@ HEAD:
     LOSS_FACTORS: [1.0, 1.0]
     LOSS_NUMS: [1, 3]
 ```
+
 This will skip building the Segmentation head altogether.
 
 To test the trained model:
+
 ```
 python3 tools/test.py --cfg experiments/offline_train_full_config.yaml
 ```
+
 By default, it fetches the trained model from `${OUTPUT_DIR}/${MODEL.BACKBONE.NAME}/${EXP_NAME}/model_best.pth.tar`. In order to test other trained models, specify its path at `${TEST.MODEL_FILE}`. The testing is only supported for the `synthetic` validation set.
 
 ### Training on Sherlock
@@ -103,6 +109,7 @@ If you are a Stanford student with access to the [Sherlock](https://www.sherlock
 ## Online Domain Refinement (ODR)
 
 To perform ODR, run
+
 ```
 bash scripts/odr.sh
 ```
