@@ -50,6 +50,5 @@ Lightbox
 | Experiment             | Rotation Error (in degrees)  | Translation Error (in meters) | SPEED  |
 |------------------------|----------------|--------------|----------|
 | Baseline               | 6.442           |     0.175     |    0.141      |
-| LADMM Fine-tuned (BN layer)|          | 0.32     |
+| LADMM Fine-tuned (BN layer)|   6.201       | 0.166     | 0.136 |
 | Neural Network Fine-tuned | 5.624        | 0.142     | 0.122
-
