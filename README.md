@@ -37,6 +37,10 @@ Then execute the following command to fine-tune the batch normalization layers:
 After training, the fine-tuned model will be saved as:
    ladmm_model_best.pth.tar
 
+Fine-tuned Model
+----------------
+You can download the fine-tuned model for lightbox from here: https://drive.google.com/file/d/15M59NriVGpGxkUnDIuSK93tE1oOe87xh/view?usp=sharing
+
 Testing
 ---------
 To test the fine-tuned model, run:
@@ -51,4 +55,4 @@ Lightbox
 |------------------------|----------------|--------------|----------|
 | Baseline               | 6.442           |     0.175     |    0.141      |
 | LADMM Fine-tuned (BN layer)|   6.201       | 0.166     | 0.136 |
-| Neural Network Fine-tuned | 5.624        | 0.142     | 0.122
+| Neural Network Fine-tuned | 5.624        | 0.142     | 0.122 |
