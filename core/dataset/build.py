@@ -52,8 +52,10 @@ def get_dataloader(cfg, split='train', distributed=False, load_labels=True):
 
     if split=='train':
         images_per_gpu = cfg.TRAIN.IMAGES_PER_GPU
-        shuffle = cfg.TRAIN.SHUFFLE
-        num_workers = min(cfg.TRAIN.IMAGES_PER_GPU, cfg.TRAIN.WORKERS)
+        #shuffle = cfg.TRAIN.SHUFFLE #shubham
+        #num_workers = min(cfg.TRAIN.IMAGES_PER_GPU, cfg.TRAIN.WORKERS)
+        num_workers = 0
+        shuffle = False
     else:
         images_per_gpu = cfg.TEST.IMAGES_PER_GPU
         shuffle = False
@@ -63,15 +65,15 @@ def get_dataloader(cfg, split='train', distributed=False, load_labels=True):
                             split=split,
                             load_labels=load_labels)
 
-    if split=='train' and distributed:
+    '''if split=='train' and distributed:
         train_sampler = torch.utils.data.distributed.DistributedSampler(
             dataset,
             shuffle=True,
             drop_last=True
         )
         shuffle = False # Shuffling done by sampler
-    else:
-        train_sampler = None
+    else:'''
+    train_sampler = None
 
     data_loader = torch.utils.data.DataLoader(
         dataset,

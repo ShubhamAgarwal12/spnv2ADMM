@@ -129,9 +129,12 @@ dmypy.json
 .pyre/
 
 # This project
+/dataset
 /outputs
 /logs
 /slurm
 /matlab
 /misc
+/models
 */ablation
+*.pth.tar

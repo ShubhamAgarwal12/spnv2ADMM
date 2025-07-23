@@ -17,5 +17,7 @@ def add_path(path):
 
 this_dir = osp.dirname(__file__)
 
-lib_path = osp.join(this_dir, '..', 'core')
-add_path(lib_path)
+lib_path1 = osp.join(this_dir, '..', 'core')
+lib_path2 = osp.join(this_dir, 'tools')
+add_path(lib_path1)
+add_path(lib_path2)

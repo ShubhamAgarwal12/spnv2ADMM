@@ -12,6 +12,7 @@ import os.path as osp
 import argparse
 
 import torch
+import random
 
 import _init_paths
 
@@ -21,6 +22,8 @@ from dataset import get_dataloader
 from engine.inference  import do_valid
 from utils.utils import set_seeds_cudnn, create_logger_directories, \
                         load_camera_intrinsics, load_tango_3d_keypoints
+
+from torch.utils.data import Subset, DataLoader
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Test on SPNv2')
@@ -67,12 +70,22 @@ def main(cfg):
 
     # Load checkpoint
     if cfg.TEST.MODEL_FILE:
-        model.load_state_dict(torch.load(cfg.TEST.MODEL_FILE, map_location='cpu'), strict=True)
+        #model.load_state_dict(torch.load(cfg.TEST.MODEL_FILE, map_location='cpu'), strict=True)
+        model = torch.load(cfg.TEST.MODEL_FILE, map_location='cpu')
         logger.info('   - Model loaded from {}'.format(cfg.TEST.MODEL_FILE))
     model = model.to(device)
 
     # Dataloaders
     test_loader = get_dataloader(cfg, split='test', load_labels=True)
+
+    #dataset = test_loader.dataset
+
+    # Randomly select sample indices from the dataset
+    #random_indices = range(int(len(dataset)*0.20))
+
+    # Create a subset and new loader
+    #subset = Subset(dataset, random_indices)
+    #subset_loader = DataLoader(test_loader, batch_size=test_loader.batch_size, shuffle=False)
 
     # For validation
     camera = load_camera_intrinsics(cfg.DATASET.CAMERA)
@@ -81,7 +94,7 @@ def main(cfg):
     # ---------------------------------------
     # Main Test
     # ---------------------------------------
-    score = do_valid(0,
+    score, R_reg, T_reg = do_valid(0,
                      cfg,
                      model,
                      test_loader,

@@ -1,4 +1,4 @@
-ROOT: '/media/shared/Jeff/SLAB/spnv2'
+ROOT: 'C:\Users\agarwals\MBDLProject\spnv2'
 OUTPUT_DIR: 'outputs'
 LOG_DIR:    'logs'
 SEED: 2021
@@ -16,11 +16,11 @@ CUDNN:
   DETERMINISTIC: False
   ENABLED: True
 DATASET:
-  ROOT: '/home/jeffpark/SLAB/Dataset'
-  DATANAME: 'speedplus'
+  ROOT: 'C:\Users\agarwals\MBDLProject\spnv2\dataset\'
+  DATANAME: 'speedplusv2'
   CAMERA: 'camera.json'
-  KEYPOINTS: 'models/tangoPoints.mat' # w.r.t. DATASET.ROOT
-  CADMODEL:  'models/tango.ply'       # w.r.t. DATASET.ROOT
+  KEYPOINTS: 'models\tangoPoints.mat' # w.r.t. DATASET.ROOT
+  CADMODEL:  'models\tango.ply'       # w.r.t. DATASET.ROOT
   IMAGE_SIZE: [1920, 1200]
   INPUT_SIZE: [768, 512]
   OUTPUT_SIZE: [4, 8, 16, 32, 64, 128] # Division factor from INPUT_SIZE (P2 ~ P7)
@@ -40,13 +40,13 @@ AUGMENT:
   APPLY_RANDOM_ERASE: True
   APPLY_NOISE: True
 TRAIN:
-  TRAIN_CSV: 'synthetic/labels/train.csv'
-  VAL_CSV:   'synthetic/labels/validation.csv'
+  TRAIN_CSV: 'synthetic\labels\train.csv'
+  VAL_CSV:   'synthetic\labels\validation.csv'
   BEGIN_EPOCH: 0
   END_EPOCH: 20
   VALID_FREQ: 1
   VALID_FRACTION: 0.1   # (0, 1]
-  IMAGES_PER_GPU: 4
+  IMAGES_PER_GPU: 1
   OPTIMIZER: AdamW
   LR: 1.0e-3
   SCHEDULER: 'step'
@@ -57,13 +57,16 @@ TRAIN:
   WD: 1.0e-4
   WORKERS: 4
 TEST:
-  TEST_CSV: 'lightbox/labels/lightbox.csv'
+  TEST_CSV: 'lightbox\labels\lightbox.csv'
   IMAGES_PER_GPU: 1
-  HEAD: ['heatmap', 'efficientpose']
+  HEAD: ['heatmap','efficientpose']
   BBOX_THRESHOLD:    0.0
   HEATMAP_THRESHOLD: 0.5
   SPEED_THRESHOLD_Q: 0.169 # [deg]
   SPEED_THRESHOLD_T: 2.173e-3 # [m/m]
+  MODEL_FILE: "C:\\Users\\agarwals\\MBDLProject\\spnv2\\models\\spnv2_efficientnetb3_fullconfig_offline.pth.tar"
+  #MODEL_FILE: "C:\\Users\\agarwals\\MBDLProject\\spnv2\\ladmm_model_best.pth.tar"
+  #MODEL_FILE: "C:\\Users\\agarwals\\MBDLProject\\spnv2\\intermediate.pth.tar"
 MODEL:
   BACKBONE:
     NAME: 'efficientdet_d3'
@@ -81,3 +84,7 @@ MODEL:
   USE_GROUPNORM_HEADS: True
   GROUPNORM_SIZE: 16
   FIND_UNUSED_PARAM: False
+ODR:
+  MIN_ENTROPY: True
+  NUM_TRAIN_SAMPLES: 1024
+  IMAGES_PER_BATCH: 1

@@ -57,6 +57,7 @@ def main():
     datadir = os.path.join(cfg.DATASET.ROOT, cfg.DATASET.DATANAME)
 
     # Read labels from JSON file
+    print(datadir)
     jsonfile = os.path.join(datadir, args.jsonfile)
     print(f'Reading JSON file from {jsonfile}...')
     with open(jsonfile, 'r') as f:
@@ -70,12 +71,12 @@ def main():
 
     # Where to save CSV?
     if 'speedplus' in cfg.DATASET.DATANAME:
-        domain, split = args.jsonfile.split('/')
+        domain, split = args.jsonfile.split('\\')
     elif cfg.DATASET.DATANAME == 'prisma25':
         domain, split = '', args.jsonfile
     elif 'shirt' in cfg.DATASET.DATANAME:
-        traj, domain, split = args.jsonfile.split('/')
-        domain = traj + '/' + domain
+        traj, domain, split = args.jsonfile.split('\\')
+        domain = traj + '\\' + domain
     else:
         raise NotImplementedError('Only accepting speedplus and prisma25')
     outdir = os.path.join(datadir, domain, 'labels')

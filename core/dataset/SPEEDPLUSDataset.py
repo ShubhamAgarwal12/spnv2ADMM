@@ -40,6 +40,7 @@ class SPEEDPLUSDataset(torch.utils.data.Dataset):
     ):
         self.root        = join(cfg.DATASET.ROOT, cfg.DATASET.DATANAME)
         self.is_train    = split == 'train'
+        self.is_train    = False
 
         self.image_size  = cfg.DATASET.IMAGE_SIZE # Original image size
         self.input_size  = cfg.DATASET.INPUT_SIZE # CNN input size
@@ -58,11 +59,12 @@ class SPEEDPLUSDataset(torch.utils.data.Dataset):
 
         # Load CSV & determine image domain
         self.csv, self.domain = self._load_csv(cfg, split)
+        #self.csv = self.csv.iloc[:200] #shubham
         logger.info(f'   - Input size: {self.input_size[0]}x{self.input_size[1]}')
 
         # Style augmentaiton?
         if self.is_train and cfg.AUGMENT.APPLY_TEXTURE_RANDOMIZATION:
-            self.styleAug   = True
+            self.styleAug   = False
             self.style_prob = cfg.AUGMENT.RANDOM_TEXTURE.PROB
             logger.info('   - Style augmentation activated with prob {}'.format(self.style_prob))
         else:
@@ -158,12 +160,12 @@ class SPEEDPLUSDataset(torch.utils.data.Dataset):
 
         # Current domain
         if 'speedplus' in cfg.DATASET.DATANAME:
-            domain = csvfile.split('/')[0]
+            domain = csvfile.split('\\')[0]
         elif cfg.DATASET.DATANAME == 'prisma25':
             domain = ''
         elif 'shirt' in cfg.DATASET.DATANAME:
-            splits = csvfile.split('/')
-            domain = splits[0] + '/' + splits[1]
+            splits = csvfile.split('\\')
+            domain = splits[0] + '\\' + splits[1]
         else:
             raise AssertionError('Only speedplus and prisma25 datasets are supported')
 

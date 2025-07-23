@@ -98,10 +98,11 @@ def do_valid(epoch, cfg, model, data_loader, camera, keypts_true_3D,
 
         with torch.no_grad():
             # Forward pass
-            outputs = model(images,
+            outputs, features = model(images,
                             is_train=False,
                             gpu=device)
 
+            print(features[0].shape)
             # Debug (uncomment)
             # imshow(images[0])
             # imshowheatmap(images[0], heatmap[0], 8)
@@ -175,7 +176,6 @@ def do_valid(epoch, cfg, model, data_loader, camera, keypts_true_3D,
                     # Save & record
                     R_reg.append(R_pr)
                     t_reg.append(t_pr)
-                    bbox_reg.append(bbox_pr)
 
                     # Metrics
                     result = {'_iou': iou, '_eR': err_q, '_eT': err_t, '_eR_HIL': speed_q, '_eT_norm_HIL': speed_t, '_pose': speed}
@@ -265,11 +265,11 @@ def do_valid(epoch, cfg, model, data_loader, camera, keypts_true_3D,
         # predfn = os.path.join(log_dir, 'predictions_raw_shirt.mat')
         # savemat(predfn, {'hmap': heatmaps, 'hmap_q': q_hmap, 'hmap_t': t_hmap, 'eff_R': R_reg, 'eff_t': t_reg}, appendmat=False)
 
-        predfn = os.path.join(log_dir, 'predictions_pose.mat')
-        savemat(predfn, {'heat_q': q_hmap, 'heat_t': t_hmap, 'effi_R': R_reg, 'effi_t': t_reg, 'bbox': bbox_reg, 'reject': h_reject}, appendmat=False)
-        logger.info(f'Pose predictions saved to {predfn}')
+        #predfn = os.path.join(log_dir, 'predictions_pose.mat')
+        #savemat(predfn, {'heat_q': q_hmap, 'heat_t': t_hmap, 'effi_R': R_reg, 'effi_t': t_reg, 'bbox': bbox_reg, 'reject': h_reject}, appendmat=False)
+        #logger.info(f'Pose predictions saved to {predfn}')
 
-    return metrics['final_pose'].avg
+    return metrics['final_pose'].avg, R_reg, t_reg
 
 
 

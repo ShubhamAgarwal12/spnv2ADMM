@@ -184,11 +184,11 @@ class SPNv2(nn.Module):
                         raise NotImplementedError(f'{self.head_names[i]} is not implemented')
 
                     # Through i-th head
-                    loss_i, loss_items = head(x, **head_targets)
+                    #loss_i, loss_items = head(x, **head_targets)
 
                     # Append individual loss
-                    loss   = loss + self.loss_factors[i] * loss_i
-                    losses = {**losses, **loss_items}
+                    #loss   = loss + self.loss_factors[i] * loss_i
+                    #losses = {**losses, **loss_items}
 
             # --- Unsupervised loss --- #
             # Min entropy via segmentation
@@ -201,12 +201,16 @@ class SPNv2(nn.Module):
                 loss   = loss + 1.0 * loss_i
                 losses = {**losses, **loss_items}
 
+            #for i, head in enumerate(self.heads): #shubham
+            #    for param in head.parameters():
+            #        param.requires_grad = False
+
             return loss, losses
         else:
             out = []
             for i in self.test_h_idx:
                 out.append(self.heads[i](x))
-            return out
+            return out, x 
 
 def _check_bn_exists(module, module_name):
     """ Check if BN layers exist in a module """
