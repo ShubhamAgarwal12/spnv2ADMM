@@ -32,7 +32,7 @@ Fine-tuning on Real Data
 Make sure you have the dataset and the pre-trained model from SPNv2 at the correct paths.
 Then execute the following command to fine-tune the batch normalization layers:
 
-   python tools\ADMM.py --cfg experiments\offline_train_full_config_phi3_BN.yaml
+   \code python tools\ADMM.py --cfg experiments\offline_train_full_config_phi3_BN.yaml
 
 After training, the fine-tuned model will be saved as:
    ladmm_model_best.pth.tar
@@ -41,7 +41,7 @@ Testing
 ---------
 To test the fine-tuned model, run:
 
-   python tools\test_admm.py --cfg experiments\offline_train_full_config_phi3_BN.yaml
+   \code python tools\test_admm.py --cfg experiments\offline_train_full_config_phi3_BN.yaml
 
 Results
 -------
