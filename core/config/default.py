@@ -124,7 +124,7 @@ _C.AUGMENT.RANDOM_TEXTURE.PROB  = 0.5                       # Probability of app
 # ------------------------------------------------------------------------------ #
 _C.TEST = CN()
 _C.TEST.MODEL_FILE = ''                                     # Location of model weights (.pth.tar) w.r.t. OUTPUT_DIR
-                                                            # If not provided, the default path is constructed according to
+_C.TEST.MODEL_FILE_ADMM = ''                                # If not provided, the default path is constructed according to
                                                             #       MODEL.BACKBONE.NAME/EXP_NAME/model_best.pth.tar
 _C.TEST.IMAGES_PER_GPU = 1                                  # Batch size (only 1 is supported)
 _C.TEST.HEAD = ['heatmap']                                  # Which prediction heads to evaluate?

@@ -65,8 +65,8 @@ TEST:
   SPEED_THRESHOLD_Q: 0.169 # [deg]
   SPEED_THRESHOLD_T: 2.173e-3 # [m/m]
   MODEL_FILE: "C:\\Users\\agarwals\\MBDLProject\\spnv2\\models\\spnv2_efficientnetb3_fullconfig_offline.pth.tar"
-  #MODEL_FILE: "C:\\Users\\agarwals\\MBDLProject\\spnv2\\ladmm_model_best.pth.tar"
-  #MODEL_FILE: "C:\\Users\\agarwals\\MBDLProject\\spnv2\\intermediate.pth.tar"
+  MODEL_FILE_ADMM: "C:\\Users\\agarwals\\MBDLProject\\spnv2\\ladmm_model_best_20.pth.tar"
+  #MODEL_FILE_ADMM: "C:\\Users\\agarwals\\MBDLProject\\spnv2\\intermediate.pth.tar"
 MODEL:
   BACKBONE:
     NAME: 'efficientdet_d3'

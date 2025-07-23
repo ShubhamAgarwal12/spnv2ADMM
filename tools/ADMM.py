@@ -163,7 +163,7 @@ def mmd_rbf(src, tgt, sigmas=(1, 2, 4, 8)):
 
 # ==================== ADMM Optimization Main Function =========================
 def admm_update_w1(posenet,
-                   lambda_dq=1.0, mu=0.01, num_admm_iterations=10,
+                   lambda_dq=1.0, mu=0.01, num_admm_iterations=5,
                    lr_theta_gd=0.001, n_inner_v=10, lr_v=0.001):
     # Get shape and flatten w1
     w1 = posenet.get_first_layer_weights()
@@ -181,7 +181,7 @@ def admm_update_w1(posenet,
         posenet.prepare_grad_only_first()
         # === w1 (theta) step ===
         w1_flat_update = w1_flat.clone().detach().requires_grad_(True)
-        for step in range(45):
+        for step in range(15):
             w1 = posenet.get_first_layer_weights()
             w1_flat = w1.contiguous().view(-1).to(device)
             #print("w1_flat: " + str(w1_flat))
