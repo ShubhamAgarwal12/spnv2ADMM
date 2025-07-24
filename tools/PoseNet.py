@@ -119,7 +119,7 @@ class PoseNet:
         dataset = data_loader.dataset
 
         # Randomly select sample indices from the dataset
-        random_indices = random.sample(range(int(len(dataset))), 16 * data_loader.batch_size)
+        random_indices = random.sample(range(int(len(dataset)*0.20)), 16 * data_loader.batch_size)
 
         # Create a subset and new loader
         subset = Subset(dataset, random_indices)

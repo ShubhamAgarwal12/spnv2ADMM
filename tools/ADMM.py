@@ -184,18 +184,9 @@ def admm_update_w1(posenet,
         for step in range(15):
             w1 = posenet.get_first_layer_weights()
             w1_flat = w1.contiguous().view(-1).to(device)
-            #print("w1_flat: " + str(w1_flat))
-            #fsrc, losses = posenet.get_first_layer_output(posenet.source_data_loader)
             ftgt, losses = posenet.get_first_layer_output(posenet.target_data_loader)
             ftgt = [x.to(device) for x in ftgt]
-            #fsrc = [x.to(device) for x in fsrc]
-            print(losses)
             feature_loss = torch.stack(losses).mean()
-            ###
-            #src_vec = fsrc_tensor.squeeze(1).mean(dim=[2,3])
-            #tgt_vec = ftgt_tensor.squeeze(1).mean(dim=[2,3])   
-            #feature_loss = ((ftgt_mean-fsrc_mean)**2).sum()/ftgt_mean.numel() 
-            #feature_loss = mmd_rbf(src_vec, tgt_vec, sigmas=(1, 2, 4, 8))
             penalty = (mu / 2.0) * ((w1_flat_update - v + u) ** 2).sum() #w1_flat
 
             R, T  = posenet.get_output_rt()  # R: [N,3,3] torch tensor, T: [N,3] torch tensor
