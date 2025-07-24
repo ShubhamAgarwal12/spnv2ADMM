@@ -13,6 +13,14 @@ Student Members:
 - Shubham Agarwal (agarwals@post.bgu.ac.il)
 - Caitong Peng (caitong@post.bgu.ac.il)
 
+In this project, we tried to use LADMM method for domain adaptation of a pre-trained satellite pose estimation model. 
+The pre-trained model trained on synthetic data is obtained from SPNv2 repo and then we fine-tune it for real-world lightbox dataset.
+The SPNv2 also has an optin to fine-tune the neural network for lightbox doamin using online domain adaptation without labels.
+These to setups (pre-trained synthetic data model and SPNv2 fine-tune model) act as a good baseline for our approach.
+
+We tackle the problem for domain adaptation using LADMM.
+The LADMM code is present in ```tools\ADMM.py``` file Lines 164-231. 
+
 Setup Instructions
 ------------------
 1. Clone this repository to your machine:
