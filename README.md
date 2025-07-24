@@ -67,6 +67,6 @@ Lightbox Evaluation:
 | Experiment                  | Rotation Error (°) | Translation Error (m) | SPEED Score |
 |----------------------------|--------------------|------------------------|-------------|
 | Baseline (SPNv2 pretrained)| 6.442              | 0.175                  | 0.141       |
-| LADMM Fine-tuned (BN only) | 6.201              | 0.166                  | 0.136       |
-| SPNv2 Fine-tune    | 5.624              | 0.142                  | 0.122       |
+| LADMM Fine-tuned | 6.201              | 0.166                  | 0.136       |
+| SPNv2 Fine-tune   | 5.624              | 0.142                  | 0.122       |
 
