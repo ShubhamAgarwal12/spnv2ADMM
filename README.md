@@ -68,5 +68,5 @@ Lightbox Evaluation:
 |----------------------------|--------------------|------------------------|-------------|
 | Baseline (SPNv2 pretrained)| 6.442              | 0.175                  | 0.141       |
 | LADMM Fine-tuned (BN only) | 6.201              | 0.166                  | 0.136       |
-| Full Fine-tune (SPNv2)     | 5.624              | 0.142                  | 0.122       |
+| SPNv2 Fine-tune    | 5.624              | 0.142                  | 0.122       |
 
